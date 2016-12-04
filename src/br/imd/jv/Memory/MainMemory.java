@@ -17,6 +17,10 @@ public class MainMemory {
         blocks = new Block[config.getBlocksNumber()];
     }
 
+    public void setBlocks(Block[] blocks) {
+        this.blocks = blocks;
+    }
+
     public Block[] getBlocks() {
         return blocks;
     }
@@ -38,6 +42,7 @@ public class MainMemory {
         if (blocks[blockPos] == null) {
             blocks[blockPos] = new Block(config);
         }
+        
         if (blocks[blockPos].getWords() == null) {
             blocks[blockPos].setWords(new Word[config.getWordsNumber()]);
         }

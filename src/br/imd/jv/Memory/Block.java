@@ -21,7 +21,7 @@ public class Block {
         return words;
     }
 
-    void setWords(Word[] words) {
+    public void setWords(Word[] words) {
         this.words = words;
     }
 }

@@ -106,14 +106,39 @@ public class Cache {
 
     public int findOnCache(int wordAdr) {
         int blockPos = wordAdr / config.getWordsNumber();
-        int linePos = blockPos % config.getLinesNumber();
         int wordPos = wordAdr % config.getWordsNumber();
+        int linePos = -1;
 
-        if (lines[linePos] == null || lines[linePos].getTag() != blockPos) {
-            return -1;
-        } else {
-            return blockPos;
+        if (config.getMappingType() == 1) {
+            linePos = blockPos % config.getLinesNumber();
+
+            if (lines[linePos] == null || lines[linePos].getTag() != blockPos) {
+                return -1;
+            }
         }
+
+        if (config.getMappingType() == 2) {
+
+            if (lines == null) {
+                lines = new Line[config.getLinesNumber()];
+            }
+
+            int i = 0;
+            for (Line l : lines) {
+                if (l != null && l.getTag() == blockPos) {
+                    return i;
+                }
+                i++;
+            }
+            return -1;
+        }
+
+        if (config.getMappingType() == 3) {
+            //TODO
+            return -1;
+        }
+
+        return linePos;
     }
 
     public void incrementHits() {

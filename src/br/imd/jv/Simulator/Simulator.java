@@ -131,6 +131,16 @@ public class Simulator {
 
             int oldBlockPos = cache.getLines()[linePos].getTag();
 
+            // Caso não tenha sido criada um Block na Block[] da memória, criar.
+            if (main.getBlocks()[oldBlockPos] == null) {
+                main.getBlocks()[oldBlockPos] = new Block(config);
+            }
+
+            // Caso não tenha sido criado uma Word[] no Block, criar.
+            if (main.getBlocks()[oldBlockPos].getWords() == null) {
+                main.getBlocks()[oldBlockPos].setWords(new Word[config.getWordsNumber()]);
+            }
+
             // Copiar bloco da cache pra memória.
             for (int i = 0; i < config.getWordsNumber(); i++) {
                 // Caso não tenha sido criada a palavra na cache, criar.
@@ -138,7 +148,7 @@ public class Simulator {
                     cache.getLines()[linePos].getBlock().getWords()[i] = new Word();
                 }
 
-                // Caso não tenha sido criada a palavra na memória, criar.
+                // Caso não tenha sido criado uma Word na Word[], criar.
                 if (main.getBlocks()[oldBlockPos].getWords()[i] == null) {
                     main.getBlocks()[oldBlockPos].getWords()[i] = new Word();
                 }
