@@ -1,6 +1,6 @@
 /* TODO:
 * (x) Mapeamento direto
-* ( ) Mapeamento parcialmente associativo
+* (x) Mapeamento parcialmente associativo
 * (x) Mapeamento totalmente associativo
 * (x) Métodos de escrita (write-back e write-through)
 * ( ) Métodos de substituição
@@ -100,8 +100,9 @@ public class Simulator {
         // Achar posição na cache em caso de ser mapeamento associativo
         if (cache.getConfig().getMappingType() == 2) {
             if (linePos == -1) {
-                linePos = cache.getNextPlace();
-                if (linePos == cache.getLines().length) {
+                linePos = cache.nextPlace(0, cache.getLines().length);
+
+                if (linePos == -1) {
                     // SUBSTITUIÇÕES // TODO
                 }
             }
@@ -109,7 +110,14 @@ public class Simulator {
 
         // Achar posição na cache em caso de ser mapeamento parcialmente associativo
         if (cache.getConfig().getMappingType() == 3) {
-            //TODO
+            linePos = blockPos % cache.getConfig().getSetsNumber();
+            int lineForSet = config.getLinesNumber() / config.getSetsNumber();
+
+            linePos = cache.nextPlace(linePos * config.getSetsNumber(), linePos + lineForSet + 1);
+
+            if (linePos == -1) {
+                // SUBSTITUIÇÕES // TODO
+            }
         }
 
         if (cache.getLines() == null) {

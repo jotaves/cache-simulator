@@ -10,7 +10,6 @@ public class Cache {
 
     int hits;
     int misses;
-    int nextPlace = 0;
 
     Configuration config;
     Line[] lines;
@@ -35,7 +34,7 @@ public class Cache {
         }
 
         if (config.getMappingType() == 3) {
-
+            linePos = cacheAdr;
         }
 
         return lines[linePos].getBlock().getWords()[wordPos].getWord();
@@ -55,7 +54,7 @@ public class Cache {
         }
 
         if (config.getMappingType() == 3) {
-
+            linePos = cacheAdr;
         }
 
         // Criar linha, se não tiver sido criada.
@@ -134,7 +133,14 @@ public class Cache {
         }
 
         if (config.getMappingType() == 3) {
-            //TODO
+            linePos = blockPos % config.getSetsNumber();
+            int lineForSet = config.getLinesNumber() / config.getSetsNumber();
+
+            for (int i = linePos * config.getSetsNumber(); i < (linePos + lineForSet + 1); i++) {
+                if (lines[i] != null && lines[i].getTag() == blockPos) {
+                    return i;
+                }
+            }
             return -1;
         }
 
@@ -161,11 +167,19 @@ public class Cache {
         return config;
     }
 
-    public int getNextPlace() {
-        if (nextPlace == lines.length) {
-            return nextPlace;
+//    public int getNextPlace(int initial) {
+//        if (nextPlace == lines.length) {
+//            return nextPlace;
+//        }
+//        return nextPlace++;
+//    }
+    public int nextPlace(int init, int end) {
+        for (int i = init; i < end; i++) {
+            if (lines[i] == null) {
+                return i;
+            }
         }
-        return nextPlace++;
+        return -1;
     }
 
     public void setLines(Line[] lines) {
