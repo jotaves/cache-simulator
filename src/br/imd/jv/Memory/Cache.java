@@ -83,12 +83,44 @@ public class Cache {
 
     public void show() {
         System.out.print("\n\n::: Memória cache::: ");
-        System.out.print("\nPosição na cache:   ");
+        System.out.print("\nConteúdos  da cache: ");
+        
+        for (Line l : lines) {
+            if (l == null) {
+                System.out.print("()");
+            }
+            else {
+                System.out.print("(");
+                if (l.getBlock() == null) {
+                    System.out.print("[]");
+                }
+                else {
+                    System.out.print("[");
+                    if (l.getBlock().getWords() == null) {
+                        System.out.print("<>");
+                    }
+                    else {
+                        for (Word w: l.getBlock().getWords()) {
+                            if (w.getWord() == null) {
+                                System.out.print("<>");
+                            }
+                            else {
+                                System.out.print("<" + w.getWord() + ">");
+                            }
+                        }
+                    }
+                    System.out.print("]");
+                }
+                System.out.print(")");
+            }
+        }
+        
+        System.out.print("\n\n\nPosição na cache :   ");
         for (int i = 0; i < lines.length; i++) {
             System.out.print(i + " ");
         }
 
-        System.out.print("\nLinhas na cache:    ");
+        System.out.print("\nBlocos nas linhas:   ");
 
         for (Line l : lines) {
             if (l == null) {
@@ -184,5 +216,14 @@ public class Cache {
 
     public void setLines(Line[] lines) {
         this.lines = lines;
+    }
+    
+    public int searchOnSet(int blockAdr, int init, int end) {
+        for (int i = init; i < end; i++) {
+            if (lines[i] != null && lines[i].getTag() == blockAdr) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

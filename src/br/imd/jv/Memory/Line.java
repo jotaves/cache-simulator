@@ -17,9 +17,11 @@ public class Line {
     private int hits;
     private Configuration config;
     private Block block;
+    private int count; // contador de frequência
 
     public Line(Configuration config) {
         this.block = new Block(config);
+        this.count = 0;
     }
 
     public int getTag() {
@@ -44,6 +46,22 @@ public class Line {
 
     public void setBlock(Block block) {
         this.block = block;
+    }
+
+    public void incrementCount() {
+        count++;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void decrementCount() {
+        count--;
     }
 
 }
