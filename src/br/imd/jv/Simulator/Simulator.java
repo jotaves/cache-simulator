@@ -4,9 +4,9 @@
 * (x) Mapeamento totalmente associativo
 * (x) Métodos de escrita (write-back e write-through)
 * (x) Substituiçção aleatória
-* (\) Substituição FIFO
-* ( ) Substituição LFU
-* ( ) Substituição LRU
+* (x) Substituição FIFO
+* (x) Substituição LFU
+* (x) Substituição LRU
  */
 package br.imd.jv.Simulator;
 
