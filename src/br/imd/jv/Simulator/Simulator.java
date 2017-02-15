@@ -280,7 +280,7 @@ public class Simulator {
     }
 
     private int substituicao(int wordAdr) {
-        System.out.println("here");
+        //System.out.println("here");
         if (config.getSubstitutionType() == 1) {
             Random r = new Random();
             if (config.getMappingType() == 2) {
